@@ -53,17 +53,25 @@ public class IntegerStringUtility {
         }
     }
 
-    
+    private static Character[] splitStringToCharacterArray(String str){
+        Character[] array = new Character[str.length()];
+        for (int i = 0; i < str.length(); i++){
+            array[i] = Character.valueOf(str.charAt(i));
+        }
+        return array;
+    }
 
     public static class StringSimilarityComparator implements Comparator<String> {
         @Override
         public int compare(String o1, String o2) {
-            //TODO: check o1 o2 order
+            //TODO: test to make sure this all works
             if(o1.length() != o2.length()) return Integer.valueOf(o1.length()).compareTo(Integer.valueOf(o2.length()));
-            char[] o1Char = o1.toCharArray();
-            char[] o2Char = o2.toCharArray();
+            Character[] charArray1 = splitStringToCharacterArray(o1);
+            Character[] charArray2 = splitStringToCharacterArray(o2);
+            insertionSort(charArray1, (char1, char2) -> char1.compareTo(char2));
+            insertionSort(charArray2, (char1, char2) -> char1.compareTo(char2));
 
-            return 0;
+            return charArray1.toString().compareTo(charArray2.toString());
         }
     }
 
