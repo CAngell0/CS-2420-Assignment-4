@@ -55,7 +55,10 @@ public class IntegerStringUtility {
     public static class StringSimilarityComparator implements Comparator<String> {
         @Override
         public int compare(String o1, String o2) {
-            return 0;
+            //TODO: check o1 o2 order
+            if(o1.length() != o2.length()) return Integer.valueOf(o1.length()).compareTo(Integer.valueOf(o2.length()));
+            char[] o1Char = o1.toCharArray();
+            char[] o2Char = o2.toCharArray();
         }
     }
 
