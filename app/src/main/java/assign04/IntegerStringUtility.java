@@ -37,20 +37,23 @@ public class IntegerStringUtility {
         @Override
         public int compare(String o1, String o2) {
             //TODO : test edge cases carefully
-            try {
-                Integer.valueOf(o1); Integer.valueOf(o2);
-            }
-            catch (NumberFormatException error){
-                return null;
-            }
+            //TODO : see if we actually need to implement these testings
+            // try {
+            //     Integer.valueOf(o1); Integer.valueOf(o2);
+            // }
+            // catch (NumberFormatException error){
+            //     return null;
+            // }
             
-            if(o1.contains('-') == '-' || o2.contains('-')){
-                return null; 
-            }
+            // if(o1.contains('-') == '-' || o2.contains('-')){
+            //     return null; 
+            // }
 
             return o1.compareTo(o2);
         }
     }
+
+    
 
     public static class StringSimilarityComparator implements Comparator<String> {
         @Override
@@ -59,6 +62,8 @@ public class IntegerStringUtility {
             if(o1.length() != o2.length()) return Integer.valueOf(o1.length()).compareTo(Integer.valueOf(o2.length()));
             char[] o1Char = o1.toCharArray();
             char[] o2Char = o2.toCharArray();
+
+            return 0;
         }
     }
 
