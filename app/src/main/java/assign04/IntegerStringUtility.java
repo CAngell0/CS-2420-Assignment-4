@@ -4,12 +4,33 @@ import java.util.Comparator;
 import java.util.NoSuchElementException;
 
 public class IntegerStringUtility {
-    public static <E> void insertionSort(E[] arr, Comparator<? super E> cmp){
+    public static <E> void insert(E[] arr, E element,  Comparator<? super E> cmp, int upperIndex){
+        //todo - Check for invalid upperIndex values
+        for (int i = upperIndex - 1; i >= 1; i--){
+            if (cmp.compare(arr[i - 1], element) > 0){
+                E temp = arr[i - 1];
+                arr[i - 1] = element;
+                arr[i] = temp;
+            }
+        }
+    }
 
+    public static <E> void insertionSort(E[] arr, Comparator<? super E> cmp){
+        //todo - Test this method
+        for (int i = 0; i < arr.length; i++){
+            for (int j = i; j < arr.length; j++){
+                insert(arr, arr[j], cmp, i);
+            }
+        }
     }
 
     public static <E> E findMax(E[] arr, Comparator<? super E> cmp) throws NoSuchElementException {
-        return null;
+        //todo - Needs testing
+        E maxElement = arr[0];
+        for (E element : arr){
+            if (cmp.compare(element, maxElement) > 0) maxElement = element;
+        }
+        return maxElement;
     }
 
     public static class StringNumericalValueComparator implements Comparator<String> {
