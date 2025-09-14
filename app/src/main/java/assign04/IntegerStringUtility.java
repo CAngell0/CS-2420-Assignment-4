@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 public class IntegerStringUtility {
     public static <E> void insert(E[] arr, E element,  Comparator<? super E> cmp, int upperIndex){
-        //todo - Check for invalid upperIndex values
+        //TODO - Check for invalid upperIndex values
         for (int i = upperIndex - 1; i >= 1; i--){
             if (cmp.compare(arr[i - 1], element) > 0){
                 E temp = arr[i - 1];
@@ -16,7 +16,7 @@ public class IntegerStringUtility {
     }
 
     public static <E> void insertionSort(E[] arr, Comparator<? super E> cmp){
-        //todo - Test this method
+        //TODO - Test this method
         for (int i = 0; i < arr.length; i++){
             for (int j = i; j < arr.length; j++){
                 insert(arr, arr[j], cmp, i);
@@ -25,7 +25,7 @@ public class IntegerStringUtility {
     }
 
     public static <E> E findMax(E[] arr, Comparator<? super E> cmp) throws NoSuchElementException {
-        //todo - Needs testing
+        //TODO - Needs testing
         E maxElement = arr[0];
         for (E element : arr){
             if (cmp.compare(element, maxElement) > 0) maxElement = element;
@@ -36,7 +36,19 @@ public class IntegerStringUtility {
     public static class StringNumericalValueComparator implements Comparator<String> {
         @Override
         public int compare(String o1, String o2) {
-            return 0;
+            //TODO : test edge cases carefully
+            try {
+                Integer.valueOf(o1); Integer.valueOf(o2);
+            }
+            catch (NumberFormatException error){
+                return null;
+            }
+            
+            if(o1.contains('-') == '-' || o2.contains('-')){
+                return null; 
+            }
+
+            return o1.compareTo(o2);
         }
     }
 
