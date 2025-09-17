@@ -32,10 +32,19 @@ public class IntegerStringUtility {
     }
 
     public static String stripLeadingZeros(String str){
+        if(str == null || str.isEmpty()){
+            return str;
+        }
+        
         StringBuilder builder = new StringBuilder();
         builder.append(str);
 
         while (builder.indexOf("0") == 0) builder.deleteCharAt(0);
+        
+        if(builder.length() == 0){
+            return "0";
+        }
+        
         return builder.toString();
     }
 
