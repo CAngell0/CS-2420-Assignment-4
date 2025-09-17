@@ -13,11 +13,11 @@ public class IntegerStringUtility {
         }
     }
 
-    public static <E> void insertionSort(E[] arr, Comparator<? super E> cmp){
-        for (int i = 1; i < arr.length; i++){
+    public static <E> void insertionSort(E[] arr, Comparator<? super E> cmp) {
+        for (int i = 1; i < arr.length; i++) {
             E key = arr[i];
             int j = i - 1;
-            while (j >= 0 && cmp.compare(arr[j], key) > 0){
+            while (j >= 0 && cmp.compare(arr[j], key) > 0) {
                 arr[j + 1] = arr[j];
                 j--;
             }
@@ -27,18 +27,29 @@ public class IntegerStringUtility {
     }
 
     public static <E> E findMax(E[] arr, Comparator<? super E> cmp) throws NoSuchElementException {
-        if (arr.length == 0) throw new NoSuchElementException("Array is empty, no such element exists.");
+        if (arr.length == 0)
+            throw new NoSuchElementException("Array is empty, no such element exists.");
 
         E[] arrCopy = Arrays.copyOf(arr, arr.length);
         insertionSort(arrCopy, cmp);
         return arrCopy[arrCopy.length - 1];
     }
 
-    public static String stripLeadingZeros(String str){
+    public static String stripLeadingZeros(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+
         StringBuilder builder = new StringBuilder();
         builder.append(str);
 
-        while (builder.indexOf("0") == 0) builder.deleteCharAt(0);
+        while (builder.indexOf("0") == 0)
+            builder.deleteCharAt(0);
+
+        if (builder.length() == 0) {
+            return "0";
+        }
+
         return builder.toString();
     }
 
@@ -48,14 +59,16 @@ public class IntegerStringUtility {
             //TODO : test
             String o1Stripped = stripLeadingZeros(o1);
             String o2Stripped = stripLeadingZeros(o2);
-            if (o1Stripped.length() != o2Stripped.length()) return Integer.compare(o1Stripped.length(), o2Stripped.length());
-            else return o1Stripped.compareTo(o2Stripped);
+            if (o1Stripped.length() != o2Stripped.length())
+                return Integer.compare(o1Stripped.length(), o2Stripped.length());
+            else
+                return o1Stripped.compareTo(o2Stripped);
         }
     }
 
-    private static Character[] splitStringToCharacterArray(String str){
+    private static Character[] splitStringToCharacterArray(String str) {
         Character[] array = new Character[str.length()];
-        for (int i = 0; i < str.length(); i++){
+        for (int i = 0; i < str.length(); i++) {
             array[i] = Character.valueOf(str.charAt(i));
         }
         return array;
@@ -64,8 +77,9 @@ public class IntegerStringUtility {
     public static class StringSimilarityComparator implements Comparator<String> {
         @Override
         public int compare(String o1, String o2) {
-            //TODO: test to make sure this all works
-            if(o1.length() != o2.length()) return Integer.compare(o1.length(), o2.length());
+            // TODO: test to make sure this all works
+            if (o1.length() != o2.length())
+                return Integer.compare(o1.length(), o2.length());
             Character[] charArray1 = splitStringToCharacterArray(o1);
             Character[] charArray2 = splitStringToCharacterArray(o2);
             insertionSort(charArray1, (char1, char2) -> char1.compareTo(char2));
@@ -83,7 +97,7 @@ public class IntegerStringUtility {
     public static class StringSimilarityGroupComparator implements Comparator<String[]> {
         @Override
         public int compare(String[] o1, String[] o2) {
-            //TODO - Test that this method works.
+            // TODO - Test that this method works.
             int lengthComparison = Integer.compare(o1.length, o2.length);
             if (lengthComparison != 0) return lengthComparison;
             else {
