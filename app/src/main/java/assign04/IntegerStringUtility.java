@@ -106,8 +106,29 @@ public class IntegerStringUtility {
 
         Comparator<String> similarityComparator = new StringSimilarityComparator();
         insertionSort(arrCopy, similarityComparator);
-        
+
         return null;
+        /*
+         * Keep a count of how many times a element repeats and keep a count of how many elements there are
+         * How many times max element apears is [][here]
+         * How many elements we have is [here][]
+         * loop through the array and when i = #times the first element repeats move into the next row [][+1]
+         * need to figure out how to store how many copies of each element
+         */
+        
+         //[element #][count]
+        int[][] counter = new int[arr.length][1];
+        int count = 1;
+
+        for(int i = 1; i < arr.length; i++){
+            if(arrCopy[i] == arrCopy[i-1]){
+                count++;
+            }
+            counter[i][0] = count;
+            counter[i][1] = count;
+            count = 0;
+        }
+
     }
 
     public static String[] findMaximumSimilarityGroup(int[] arr) throws NoSuchElementException {
