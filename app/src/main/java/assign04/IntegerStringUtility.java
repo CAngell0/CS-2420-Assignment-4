@@ -8,43 +8,35 @@ public class IntegerStringUtility {
     public static void main(String[] args) {
         getSimilarityGroups(new String[]{"2341", "123", "2134", "2431", "312", "2143"});
     }
-    public static <E> void insert(E[] arr, E element,  Comparator<? super E> cmp, int upperIndex){
-        //TODO - Check for invalid upperIndex values
-        for (int i = upperIndex - 1; i >= 1; i--){
-            if (cmp.compare(arr[i - 1], element) > 0){
-                E temp = arr[i - 1];
-                arr[i - 1] = element;
-                arr[i] = temp;
-            }
-        }
-    }
 
     public static <E> void insertionSort(E[] arr, Comparator<? super E> cmp){
-        //TODO - Test this method
-        // for (int i = 1; i < arr.length; i++){
-        //     E key = arr[i];
-        //     int j = i - 1;
-        //     while (j < 0 && cmp.compare(arr[j], key) > 0){
-        //         arr[j + 1] = arr[j];
-        //         j--;
-        //     }
-
-        //     arr[j + 1] = key;
-        // }
-        for (int i = 0; i < arr.length; i++){
-            for (int j = i; j < arr.length; j++){
-                insert(arr, arr[j], cmp, i);
+        for (int i = 1; i < arr.length; i++){
+            E key = arr[i];
+            int j = i - 1;
+            while (j >= 0 && cmp.compare(arr[j], key) > 0){
+                arr[j + 1] = arr[j];
+                j--;
             }
+
+            arr[j + 1] = key;
         }
     }
 
     public static <E> E findMax(E[] arr, Comparator<? super E> cmp) throws NoSuchElementException {
-        //TODO - Needs testing
-        E maxElement = arr[0];
-        for (E element : arr){
-            if (cmp.compare(element, maxElement) > 0) maxElement = element;
-        }
-        return maxElement;
+        if (arr.length == 0) throw new NoSuchElementException("Array is empty, no such element exists.");
+
+        E[] arrCopy = Arrays.copyOf(arr, arr.length);
+        insertionSort(arrCopy, cmp);
+        return arrCopy[arrCopy.length - 1];
+    }
+
+    public static String stripLeadingZeros(String str){
+        StringBuilder builder = new StringBuilder();
+        builder.append(str);
+
+        while (builder.lastIndexOf("0") == builder.length() - 1) builder.deleteCharAt(builder.length() - 1);
+        while (builder.indexOf("0") == 0) builder.deleteCharAt(0);
+        return builder.toString();
     }
 
     public static class StringNumericalValueComparator implements Comparator<String> {
@@ -62,8 +54,10 @@ public class IntegerStringUtility {
             // if(o1.contains('-') == '-' || o2.contains('-')){
             //     return null; 
             // }
-
-            return o1.compareTo(o2);
+            String o1Stripped = stripLeadingZeros(o1);
+            String o2Stripped = stripLeadingZeros(o2);
+            if (o1Stripped.length() != o2Stripped.length()) return Integer.compare(o1Stripped.length(), o2Stripped.length());
+            else return o1Stripped.compareTo(o2Stripped);
         }
     }
 
@@ -111,8 +105,39 @@ public class IntegerStringUtility {
         insertionSort(arrCopy, similarityComparator);
 
         System.out.println(Arrays.toString(arrCopy));
-        //[ 01234, 01234, 01234, 5679, 5679]
+
+        // return null;
+        /*
+         * Keep a count of how many times a element repeats and keep a count of how many elements there are
+         * How many times max element apears is [][here]
+         * How many elements we have is [here][]
+         * loop through the array and when i = #times the first element repeats move into the next row [][+1]
+         * need to figure out how to store how many copies of each element
+         */
+        
+         //[element #][count]
+        // int counter[] = new int[arr.length];
+        // int size = 0;
+        // int count = 1;
+
+        // for(int i = 1; i < arr.length; i++){
+        //     if(arrCopy[i] == arrCopy[i-1]){
+        //         count++;
+        //     }
+        //     counter[size] = count;
+        //     size++;
+        //     count = 0;
+        // }
+        // String[][] sortedStrings = new String[1][counter.length];
+        
+        // for(int i = 0; i < arr.length; i++){
+        //     /**
+        //      * Keep putting the elements in the same row as long as counter[?] != 0
+        //      */
+        // }
+
         return null;
+
     }
 
     public static String[] findMaximumSimilarityGroup(int[] arr) throws NoSuchElementException {
