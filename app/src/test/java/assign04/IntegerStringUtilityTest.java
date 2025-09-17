@@ -38,5 +38,6 @@ public class IntegerStringUtilityTest {
         assertTrue("84684".equals(IntegerStringUtility.stripLeadingZeros("0084684")));
         assertTrue("8468400".equals(IntegerStringUtility.stripLeadingZeros("8468400")));
         assertTrue("8468400000".equals(IntegerStringUtility.stripLeadingZeros("000008468400000")));
+        assertTrue("0".equals(IntegerStringUtility.stripLeadingZeros("00000")));
     }
 }
