@@ -117,16 +117,24 @@ public class IntegerStringUtility {
          */
         
          //[element #][count]
-        int[][] counter = new int[arr.length][1];
+        int counter[] = new int[arr.length];
+        int size;
         int count = 1;
 
         for(int i = 1; i < arr.length; i++){
             if(arrCopy[i] == arrCopy[i-1]){
                 count++;
             }
-            counter[i][0] = count;
-            counter[i][1] = count;
+            counter[size] = count;
+            size++;
             count = 0;
+        }
+        String[][] sortedStrings = new String[1][counter.length];
+        
+        for(int i = 0; i < arr.length; i++){
+            /**
+             * Keep putting the elements in the same row as long as counter[?] != 0
+             */
         }
 
     }
