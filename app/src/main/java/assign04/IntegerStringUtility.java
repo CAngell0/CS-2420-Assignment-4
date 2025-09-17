@@ -1,5 +1,6 @@
 package assign04;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
@@ -34,7 +35,6 @@ public class IntegerStringUtility {
         StringBuilder builder = new StringBuilder();
         builder.append(str);
 
-        while (builder.lastIndexOf("0") == builder.length() - 1) builder.deleteCharAt(builder.length() - 1);
         while (builder.indexOf("0") == 0) builder.deleteCharAt(0);
         return builder.toString();
     }
@@ -101,11 +101,29 @@ public class IntegerStringUtility {
     public static String[][] getSimilarityGroups(String[] arr){
         String[] arrCopy = Arrays.copyOf(arr, arr.length);
 
-        Comparator<String> similarityComparator = new StringSimilarityComparator();
-        insertionSort(arrCopy, similarityComparator);
+        StringSimilarityComparator cmp = new StringSimilarityComparator();
+        insertionSort(arrCopy, cmp);
 
-        System.out.println(Arrays.toString(arrCopy));
+        ArrayList<String[]> similarityGroups = new ArrayList<>();
+        int groupStartIndex = 0;
+        int groupEndIndex = 1;
+        for (int i = 0; i < arrCopy.length - 1; i++){
+            if (cmp.compare(arrCopy[i], arrCopy[i + 1]) != 0){
+                String[] group = new String[groupEndIndex - groupStartIndex];
 
+                for (int j = groupStartIndex; j < groupEndIndex; j++){
+                    group[j - groupStartIndex] = arrCopy[groupStartIndex];
+                }
+
+                groupStartIndex = groupEndIndex;
+                similarityGroups.add(group);
+            }
+            groupEndIndex++;
+        }
+
+        similarityGroups.forEach((strArr) -> {
+            System.out.println(Arrays.toString(strArr));
+        });
         // return null;
         /*
          * Keep a count of how many times a element repeats and keep a count of how many elements there are
