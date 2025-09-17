@@ -5,34 +5,37 @@ import java.util.Comparator;
 import java.util.NoSuchElementException;
 
 public class IntegerStringUtility {
-    // public static <E> void insert(E[] arr, E element,  Comparator<? super E> cmp, int upperIndex){
-    //     //TODO - Check for invalid upperIndex values
-    //     for (int i = upperIndex - 1; i >= 1; i--){
-    //         if (cmp.compare(arr[i - 1], element) > 0){
-    //             E temp = arr[i - 1];
-    //             arr[i - 1] = element;
-    //             arr[i] = temp;
-    //         }
-    //     }
-    // }
+    public static void main(String[] args) {
+        getSimilarityGroups(new String[]{"2341", "123", "2134", "2431", "312", "2143"});
+    }
+    public static <E> void insert(E[] arr, E element,  Comparator<? super E> cmp, int upperIndex){
+        //TODO - Check for invalid upperIndex values
+        for (int i = upperIndex - 1; i >= 1; i--){
+            if (cmp.compare(arr[i - 1], element) > 0){
+                E temp = arr[i - 1];
+                arr[i - 1] = element;
+                arr[i] = temp;
+            }
+        }
+    }
 
     public static <E> void insertionSort(E[] arr, Comparator<? super E> cmp){
         //TODO - Test this method
-        for (int i = 1; i < arr.length; i++){
-            E key = arr[i];
-            int j = i - 1;
-            while (j <= 0 && cmp.compare(arr[j], key) > 0){
-                arr[j + 1] = arr[j];
-                j--;
-            }
-
-            arr[j + 1] = key;
-        }
-        // for (int i = 0; i < arr.length; i++){
-        //     for (int j = i; j < arr.length; j++){
-        //         insert(arr, arr[j], cmp, i);
+        // for (int i = 1; i < arr.length; i++){
+        //     E key = arr[i];
+        //     int j = i - 1;
+        //     while (j < 0 && cmp.compare(arr[j], key) > 0){
+        //         arr[j + 1] = arr[j];
+        //         j--;
         //     }
+
+        //     arr[j + 1] = key;
         // }
+        for (int i = 0; i < arr.length; i++){
+            for (int j = i; j < arr.length; j++){
+                insert(arr, arr[j], cmp, i);
+            }
+        }
     }
 
     public static <E> E findMax(E[] arr, Comparator<? super E> cmp) throws NoSuchElementException {
@@ -106,7 +109,9 @@ public class IntegerStringUtility {
 
         Comparator<String> similarityComparator = new StringSimilarityComparator();
         insertionSort(arrCopy, similarityComparator);
-        
+
+        System.out.println(Arrays.toString(arrCopy));
+        //[ 01234, 01234, 01234, 5679, 5679]
         return null;
     }
 
