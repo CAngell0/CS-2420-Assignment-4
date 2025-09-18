@@ -132,13 +132,21 @@ public class IntegerStringUtilityTest {
     }
 
     @Test
-    void testEmptyArrays() {
+    void testStringSimilarityGroupComparatorEmptyArrays() {
         String[] empty1 = {};
         String[] empty2 = {};
         String[] notEmpty = { "5" };
-        
+
         IntegerStringUtility.StringSimilarityGroupComparator cmp = new IntegerStringUtility.StringSimilarityGroupComparator();
         assertEquals(0, cmp.compare(empty1, empty2));
         assertTrue(cmp.compare(empty1, notEmpty) < 0);
+    }
+
+    @Test
+    void testFindMaximumSimilarityGroupEmptyArray() {
+        int[] emptyArr = {};
+        assertThrows(NoSuchElementException.class, () -> {
+            IntegerStringUtility.findMaximumSimilarityGroup(emptyArr);
+        });
     }
 }
