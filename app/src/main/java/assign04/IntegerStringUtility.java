@@ -115,6 +115,8 @@ public class IntegerStringUtility {
 
     public static String[][] getSimilarityGroups(String[] arr) {
         // TODO - Test
+        if (arr.length == 0) return new String[0][];
+
         String[] arrCopy = Arrays.copyOf(arr, arr.length);
 
         StringSimilarityComparator cmp = new StringSimilarityComparator();

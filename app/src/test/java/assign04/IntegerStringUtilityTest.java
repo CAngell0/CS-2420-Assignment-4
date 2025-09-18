@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Comparator;
 import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -145,9 +144,46 @@ public class IntegerStringUtilityTest {
 
     @Test
     void testGetSimilarityGroupsWithEmptyArray(){
-        //!
         String[] strArr = new String[0];
-        assertThrows(NoSuchElementException.class, () -> IntegerStringUtility.getSimilarityGroups(strArr));
+        String[][] result = IntegerStringUtility.getSimilarityGroups(strArr);
+
+        assertNotNull(result);
+        assertEquals(0, result.length);
+        assertThrows(IndexOutOfBoundsException.class,() -> {
+            @SuppressWarnings("unused")
+            String[] test = result[0];
+        });
+    }
+
+    @Test
+    void testGetSimilarityGroupsWithEmptyStringInArray(){
+        //Testing with just an empty string
+        String[] strArr = new String[]{""};
+        String[][] result = IntegerStringUtility.getSimilarityGroups(strArr);
+
+        assertNotNull(result);
+        assertEquals(1, result.length);
+        assertEquals(1, result[0].length);
+        assertEquals("", result[0][0]);
+
+        //Testing with numbers and empty strings
+        String[] strArr2 = new String[]{"2341", "123", "", "2431", "312", "", "", "2143", "2134"};
+        String[][] expectedResult = new String[3][];
+            expectedResult[0] = new String[]{"", "", ""};
+            expectedResult[1] = new String[]{"123", "312"};
+            expectedResult[2] = new String[]{"2341", "2431", "2143", "2134"};
+        String[][] result2 = IntegerStringUtility.getSimilarityGroups(strArr2);
+        
+        assertNotNull(result2);
+        assertEquals(3, result2.length);
+        assertEquals(3, result2[0].length);
+        assertEquals(2, result2[1].length);
+        assertEquals(4, result2[2].length);
+        for (int row = 0; row < expectedResult.length; row++){
+            for (int col = 0; col < expectedResult[row].length; col++){
+                assertEquals(result2[row][col], expectedResult[row][col]);
+            }
+        }
     }
 
     @Test
