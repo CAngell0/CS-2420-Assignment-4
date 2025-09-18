@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Comparator;
 import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -17,65 +18,68 @@ public class IntegerStringUtilityTest {
     String[] emptyStringArray;
 
     @BeforeEach
-    void prepareArrays(){
-        integerArray = new Integer[]{5, 8, 2, 4, 9, 10 ,14, 89, 100, 34};
+    void prepareArrays() {
+        integerArray = new Integer[] { 5, 8, 2, 4, 9, 10, 14, 89, 100, 34 };
         emptyIntegerArray = new Integer[0];
 
-        stringArray = new String[]{"banana", "apple", "orange", "zebra", "carrot", "tangerine"};
+        stringArray = new String[] { "banana", "apple", "orange", "zebra", "carrot", "tangerine" };
         emptyStringArray = new String[0];
     }
-    
+
     @Test
-    void testInsertionSortMethodWithIntegers(){
-        Integer[] testSortedArr = new Integer[]{2, 4, 5, 8, 9, 10, 14, 34, 89, 100};
+    void testInsertionSortMethodWithIntegers() {
+        Integer[] testSortedArr = new Integer[] { 2, 4, 5, 8, 9, 10, 14, 34, 89, 100 };
 
         IntegerStringUtility.insertionSort(integerArray, (n1, n2) -> Integer.compare(n1, n2));
-        
+
         assertNotNull(integerArray);
-        for (int i = 0; i < integerArray.length; i++){
+        for (int i = 0; i < integerArray.length; i++) {
             assertTrue(testSortedArr[i].equals(integerArray[i]));
         }
     }
 
     @Test
-    void testInsertionSortMethodWithStrings(){
-        String[] testSortedArr = new String[]{"apple", "banana", "carrot", "orange", "tangerine", "zebra"};
+    void testInsertionSortMethodWithStrings() {
+        String[] testSortedArr = new String[] { "apple", "banana", "carrot", "orange", "tangerine", "zebra" };
 
         IntegerStringUtility.insertionSort(stringArray, (n1, n2) -> n1.compareTo(n2));
-        
+
         assertNotNull(stringArray);
-        for (int i = 0; i < stringArray.length; i++){
+        for (int i = 0; i < stringArray.length; i++) {
             assertTrue(testSortedArr[i].equals(stringArray[i]));
         }
     }
 
     @Test
-    void testFindMaxWithIntegers(){
+    void testFindMaxWithIntegers() {
         int result = IntegerStringUtility.findMax(integerArray, (n1, n2) -> Integer.compare(n1, n2));
         assertEquals(100, result);
     }
 
     @Test
-    void testFindMaxWithEmptyIntegerArray(){
-        assertThrows(NoSuchElementException.class, () -> IntegerStringUtility.findMax(emptyIntegerArray, (n1, n2) -> Integer.compare(n1, n2)));
+    void testFindMaxWithEmptyIntegerArray() {
+        assertThrows(NoSuchElementException.class,
+                () -> IntegerStringUtility.findMax(emptyIntegerArray, (n1, n2) -> Integer.compare(n1, n2)));
     }
 
     @Test
-    void testFindMaxWithStrings(){
+    void testFindMaxWithStrings() {
         String result = IntegerStringUtility.findMax(stringArray, (s1, s2) -> s1.compareTo(s2));
         assertNotNull(result);
         assertEquals("zebra", result);
     }
 
     @Test
-    void testFindMaxWithEmptyStringArray(){
-        assertThrows(NoSuchElementException.class, () -> IntegerStringUtility.findMax(emptyStringArray, (s1, s2) -> s1.compareTo(s2)));
+    void testFindMaxWithEmptyStringArray() {
+        assertThrows(NoSuchElementException.class,
+                () -> IntegerStringUtility.findMax(emptyStringArray, (s1, s2) -> s1.compareTo(s2)));
     }
 
     @Test
-    void testStringNumericValueComparator(){
-        //TODO : Find out if these tests should account for negative numbers. 
-        //       I remember the assignment saying something about it but I don't know where to find it.
+    void testStringNumericValueComparator() {
+        // TODO : Find out if these tests should account for negative numbers.
+        // I remember the assignment saying something about it but I don't know where to
+        // find it.
         IntegerStringUtility.StringNumericalValueComparator cmp = new IntegerStringUtility.StringNumericalValueComparator();
 
         String num1 = "84542837655628";
@@ -94,20 +98,47 @@ public class IntegerStringUtilityTest {
     }
 
     @Test
-    void testStringSimilarityComparator(){
+    void testStringSimilarityComparator() {
         IntegerStringUtility.StringSimilarityComparator cmp = new IntegerStringUtility.StringSimilarityComparator();
 
-        //Similar
+        // Similar
         String num1 = "57245";
         String num2 = "55274";
         String num3 = "74525";
     }
 
     @Test
-    void testTrimLeadingZeros(){
+    void testTrimLeadingZeros() {
         assertTrue("84684".equals(IntegerStringUtility.stripLeadingZeros("0084684")));
         assertTrue("8468400".equals(IntegerStringUtility.stripLeadingZeros("8468400")));
         assertTrue("8468400000".equals(IntegerStringUtility.stripLeadingZeros("000008468400000")));
         assertTrue("0".equals(IntegerStringUtility.stripLeadingZeros("00000")));
+    }
+
+    @Test
+    void testStringSimilarityGroupComparatorDiffLengths() {
+        String[] small = { "1", "2" };
+        String[] large = { "3", "4", "5" };
+        IntegerStringUtility.StringSimilarityGroupComparator cmp = new IntegerStringUtility.StringSimilarityGroupComparator();
+        assertTrue(cmp.compare(small, large) < 0);
+    }
+
+    @Test
+    void testStringSimilarityGroupComparatorSameLengths() {
+        String[] groupA = { "1", "2", "10" };
+        String[] groupB = { "3", "4", "5" };
+        IntegerStringUtility.StringSimilarityGroupComparator cmp = new IntegerStringUtility.StringSimilarityGroupComparator();
+        assertTrue(cmp.compare(groupA, groupB) > 0);
+    }
+
+    @Test
+    void testEmptyArrays() {
+        String[] empty1 = {};
+        String[] empty2 = {};
+        String[] notEmpty = { "5" };
+        
+        IntegerStringUtility.StringSimilarityGroupComparator cmp = new IntegerStringUtility.StringSimilarityGroupComparator();
+        assertEquals(0, cmp.compare(empty1, empty2));
+        assertTrue(cmp.compare(empty1, notEmpty) < 0);
     }
 }
