@@ -83,6 +83,7 @@ public class IntegerStringUtilityTest {
         String num3 = "84542837655628";
         String num4 = "6437651276543781264";
 
+        assertEquals(0, cmp.compare("", ""));
         assertEquals(0, cmp.compare(num1, num1));
         assertEquals(0, cmp.compare(num1, num3));
         assertEquals(0, cmp.compare(num3, num3));
@@ -101,6 +102,21 @@ public class IntegerStringUtilityTest {
         String num1 = "57245";
         String num2 = "55274";
         String num3 = "74525";
+
+        //Similar
+        String num4 = "9435645292736546437623";
+        String num5 = "3465392447562923643756";
+
+        assertEquals(0, cmp.compare("", ""));
+        assertEquals(0, cmp.compare(num1, num2));
+        assertEquals(0, cmp.compare(num2, num3));
+        assertEquals(0, cmp.compare(num3, num1));
+        assertEquals(0, cmp.compare(num4, num5));
+
+        assertTrue(cmp.compare(num4, num1) > 0);
+        assertTrue(cmp.compare(num1, num4) < 0);
+        assertTrue(cmp.compare(num5, num3) > 0);
+        assertTrue(cmp.compare(num3, num5) < 0);
     }
 
     @Test
