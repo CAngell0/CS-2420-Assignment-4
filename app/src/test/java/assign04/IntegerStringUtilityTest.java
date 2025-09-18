@@ -79,9 +79,6 @@ public class IntegerStringUtilityTest {
 
     @Test
     void testStringNumericValueComparator() {
-        // TODO : Find out if these tests should account for negative numbers.
-        // I remember the assignment saying something about it but I don't know where to
-        // find it.
         IntegerStringUtility.StringNumericalValueComparator cmp = new IntegerStringUtility.StringNumericalValueComparator();
 
         String num1 = "84542837655628";

@@ -127,7 +127,6 @@ public class IntegerStringUtility {
     }
 
     public static String[][] getSimilarityGroups(String[] arr) {
-        // TODO - Test
         if (arr.length == 0)
             return new String[0][];
 
