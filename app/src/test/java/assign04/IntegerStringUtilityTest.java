@@ -18,7 +18,7 @@ public class IntegerStringUtilityTest {
     String[] stringArray;
     String[] emptyStringArray;
 
-    //* Create some test material
+    // * Create some test material
     @BeforeEach
     void prepareArrays() {
         integerArray = new Integer[] { 5, 8, 2, 4, 9, 10, 14, 89, 100, 34 };
@@ -28,9 +28,7 @@ public class IntegerStringUtilityTest {
         emptyStringArray = new String[0];
     }
 
-
-
-    //* insertionSort method testing
+    // * insertionSort method testing
     @Test
     void testInsertionSortMethodWithIntegers() {
         Integer[] testSortedArr = new Integer[] { 2, 4, 5, 8, 9, 10, 14, 34, 89, 100 };
@@ -63,9 +61,7 @@ public class IntegerStringUtilityTest {
         });
     }
 
-
-
-    //* findMax method testing
+    // * findMax method testing
     @Test
     void testFindMaxWithIntegers() {
         int result = IntegerStringUtility.findMax(integerArray, (n1, n2) -> Integer.compare(n1, n2));
@@ -91,9 +87,7 @@ public class IntegerStringUtilityTest {
                 () -> IntegerStringUtility.findMax(emptyStringArray, (s1, s2) -> s1.compareTo(s2)));
     }
 
-
-
-    //* trimLeadingZeroes helper method testing
+    // * trimLeadingZeroes helper method testing
     @Test
     void testTrimLeadingZeros() {
         assertTrue("84684".equals(IntegerStringUtility.stripLeadingZeros("0084684")));
@@ -102,11 +96,9 @@ public class IntegerStringUtilityTest {
         assertTrue("0".equals(IntegerStringUtility.stripLeadingZeros("00000")));
     }
 
-
-
-    //* StringNumericValueComparator class testing
+    // * StringNumericValueComparator class testing
     @Test
-    void testStringNumericValueComparatorWithLeadingZeroes(){
+    void testStringNumericValueComparatorWithLeadingZeroes() {
         IntegerStringUtility.StringNumericalValueComparator cmp = new IntegerStringUtility.StringNumericalValueComparator();
 
         assertTrue(cmp.compare("0", "12") < 0);
@@ -134,9 +126,7 @@ public class IntegerStringUtilityTest {
         assertTrue(cmp.compare(num3, num4) < 0 && cmp.compare(num4, num2) < 0);
     }
 
-
-
-    //* StringSimilarityComparator class testing
+    // * StringSimilarityComparator class testing
     @Test
     void testStringSimilarityComparator() {
         IntegerStringUtility.StringSimilarityComparator cmp = new IntegerStringUtility.StringSimilarityComparator();
@@ -146,7 +136,7 @@ public class IntegerStringUtilityTest {
         String num2 = "55274";
         String num3 = "74525";
 
-        //Similar
+        // Similar
         String num4 = "9435645292736546437623";
         String num5 = "3465392447562923643756";
 
@@ -179,9 +169,7 @@ public class IntegerStringUtilityTest {
         assertNotEquals(0, cmp.compare("abc", "def"));
     }
 
-
-
-    //* StringSimilarityGroupComparator class testing
+    // * StringSimilarityGroupComparator class testing
     @Test
     void testStringSimilarityGroupComparatorDiffLengths() {
         String[] small = { "1", "2" };
