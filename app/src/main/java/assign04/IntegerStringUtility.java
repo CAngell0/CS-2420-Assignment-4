@@ -61,6 +61,29 @@ public class IntegerStringUtility {
     }
 
     /**
+     * NOTE: This was an alternate method that was made to prioritize run-time efficiency per the analysis.
+     * Finds the largest element in an array and returns it. This method is generic and will take any class type so long as a comparator is provided along with it.
+     * @param <E> Any class that you can match a comparator to.
+     * @param arr The array to search through.
+     * @param cmp The comparator that will be used to compare elements and find the biggest one
+     * @return The largest element in the array
+     * @throws NoSuchElementException If the array is empty, a NoSuchElementException is thrown.
+     */
+    public static <E> E findMaxAlternate(E[] arr, Comparator<? super E> cmp) throws NoSuchElementException {
+        if (arr == null) {
+            throw new IllegalArgumentException("Array cannot be null");
+        }
+        if (arr.length == 0)
+            throw new NoSuchElementException("Array is empty, no such element exists.");
+
+        E largestElement = arr[0];
+        for (E element : arr){
+            if (cmp.compare(element, largestElement) > 0) largestElement = element;
+        }
+        return largestElement;
+    }
+
+    /**
      * Takes any leading zeroes off of the front of a stringified integer.
      * Example: "00022835000" -> "2283500"
      * @param str The string to remove leading zeros from
