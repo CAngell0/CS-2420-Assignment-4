@@ -7,8 +7,8 @@ import java.util.NoSuchElementException;
 
 public class IntegerStringUtility {
     public static void main(String[] args) {
-        String[][] arr = getSimilarityGroups(new String[]{"2341", "123", "2134", "2431", "312", "2143"});
-        for (String[] row : arr){
+        String[][] arr = getSimilarityGroups(new String[] { "2341", "123", "2134", "2431", "312", "2143" });
+        for (String[] row : arr) {
             System.out.println(Arrays.toString(row));
         }
     }
@@ -56,7 +56,7 @@ public class IntegerStringUtility {
     public static class StringNumericalValueComparator implements Comparator<String> {
         @Override
         public int compare(String o1, String o2) {
-            //TODO : test
+            // TODO : test
             String o1Stripped = stripLeadingZeros(o1);
             String o2Stripped = stripLeadingZeros(o2);
             if (o1Stripped.length() != o2Stripped.length())
@@ -86,9 +86,11 @@ public class IntegerStringUtility {
             insertionSort(charArray2, (char1, char2) -> char1.compareTo(char2));
 
             StringBuilder o1StrBuilder = new StringBuilder();
-            for (Character charEl : charArray1) o1StrBuilder.append(charEl.charValue());
+            for (Character charEl : charArray1)
+                o1StrBuilder.append(charEl.charValue());
             StringBuilder o2StrBuilder = new StringBuilder();
-            for (Character charEl : charArray2) o2StrBuilder.append(charEl.charValue());
+            for (Character charEl : charArray2)
+                o2StrBuilder.append(charEl.charValue());
 
             return o1StrBuilder.toString().compareTo(o2StrBuilder.toString());
         }
@@ -99,7 +101,8 @@ public class IntegerStringUtility {
         public int compare(String[] o1, String[] o2) {
             // TODO - Test that this method works.
             int lengthComparison = Integer.compare(o1.length, o2.length);
-            if (lengthComparison != 0) return lengthComparison;
+            if (lengthComparison != 0)
+                return lengthComparison;
             else {
                 StringNumericalValueComparator cmp = new StringNumericalValueComparator();
                 String o1Max = findMax(o1, cmp);
@@ -109,8 +112,8 @@ public class IntegerStringUtility {
         }
     }
 
-    public static String[][] getSimilarityGroups(String[] arr){
-        //TODO - Test
+    public static String[][] getSimilarityGroups(String[] arr) {
+        // TODO - Test
         String[] arrCopy = Arrays.copyOf(arr, arr.length);
 
         StringSimilarityComparator cmp = new StringSimilarityComparator();
@@ -118,11 +121,12 @@ public class IntegerStringUtility {
 
         ArrayList<String[]> similarityGroups = new ArrayList<>();
         int groupStartIndex = 0;
-        for (int i = 0; i <= arrCopy.length; i++){
-            if (i != arrCopy.length && cmp.compare(arrCopy[groupStartIndex], arrCopy[i]) == 0) continue;
+        for (int i = 0; i <= arrCopy.length; i++) {
+            if (i != arrCopy.length && cmp.compare(arrCopy[groupStartIndex], arrCopy[i]) == 0)
+                continue;
 
             String[] group = new String[i - groupStartIndex];
-            for (int j = groupStartIndex; j < i; j++){
+            for (int j = groupStartIndex; j < i; j++) {
                 group[j - groupStartIndex] = arrCopy[j];
             }
 
@@ -134,6 +138,12 @@ public class IntegerStringUtility {
     }
 
     public static String[] findMaximumSimilarityGroup(int[] arr) throws NoSuchElementException {
-        return null;
+        String[] strArr = new String[arr.length];
+        for(int i = 0; i < arr.length; i++){
+            strArr[i] = arr[i] + "";
+        }
+        String[][] simGroups = getSimilarityGroups(strArr);
+        StringSimilarityGroupComparator cmp = new StringSimilarityGroupComparator();
+        return findMax(simGroups, cmp);
     }
 }
