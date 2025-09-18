@@ -141,8 +141,8 @@ public class IntegerStringUtility {
     }
 
     public static String[] findMaximumSimilarityGroup(int[] arr) throws NoSuchElementException {
-        if (arr.length == 0) { // Add this check
-            throw new NoSuchElementException("Array is empty, no such element exists.");
+        if (arr.length == 0) {
+            throw new NoSuchElementException("Array is empty.");
         }
         String[] strArr = new String[arr.length];
         for (int i = 0; i < arr.length; i++) {
