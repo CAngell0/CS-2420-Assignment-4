@@ -120,6 +120,33 @@ public class IntegerStringUtilityTest {
     }
 
     @Test
+    void testGetSimilarityGroups(){
+        String[] strArr = new String[]{"2341", "123", "2134", "2431", "312", "2143"};
+        String[][] expectedGroupedArray = new String[2][];
+            expectedGroupedArray[0] = new String[]{"123", "312"};
+            expectedGroupedArray[1] = new String[]{"2341", "2134", "2431", "2143"};
+        
+        String[][] result = IntegerStringUtility.getSimilarityGroups(strArr);
+
+        assertNotNull(result);
+        assertEquals(2, result.length);
+        assertEquals(2, result[0].length);
+        assertEquals(4, result[1].length);
+        for (int row = 0; row < expectedGroupedArray.length; row++){
+            for (int col = 0; col < expectedGroupedArray[row].length; col++){
+                assertEquals(result[row][col], expectedGroupedArray[row][col]);
+            }
+        }
+    }
+
+    @Test
+    void testGetSimilarityGroupsWithEmptyArray(){
+        //!
+        String[] strArr = new String[0];
+        assertThrows(NoSuchElementException.class, () -> IntegerStringUtility.getSimilarityGroups(strArr));
+    }
+
+    @Test
     void testTrimLeadingZeros(){
         assertTrue("84684".equals(IntegerStringUtility.stripLeadingZeros("0084684")));
         assertTrue("8468400".equals(IntegerStringUtility.stripLeadingZeros("8468400")));
