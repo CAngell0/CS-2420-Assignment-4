@@ -27,6 +27,9 @@ public class IntegerStringUtility {
     }
 
     public static <E> E findMax(E[] arr, Comparator<? super E> cmp) throws NoSuchElementException {
+        if (arr == null) {
+            throw new IllegalArgumentException("Array cannot be null");
+        }
         if (arr.length == 0)
             throw new NoSuchElementException("Array is empty, no such element exists.");
 
@@ -56,6 +59,9 @@ public class IntegerStringUtility {
     public static class StringNumericalValueComparator implements Comparator<String> {
         @Override
         public int compare(String o1, String o2) {
+            if (o1 == null || o2 == null) {
+                throw new IllegalArgumentException("Strings cannot be null");
+            }
             String o1Stripped = stripLeadingZeros(o1);
             String o2Stripped = stripLeadingZeros(o2);
             if (o1Stripped.length() != o2Stripped.length())
@@ -76,7 +82,9 @@ public class IntegerStringUtility {
     public static class StringSimilarityComparator implements Comparator<String> {
         @Override
         public int compare(String o1, String o2) {
-            // TODO: test to make sure this all works
+            if (o1 == null || o2 == null) {
+                throw new IllegalArgumentException("Strings cannot be null");
+            }
             if (o1.length() != o2.length())
                 return Integer.compare(o1.length(), o2.length());
             Character[] charArray1 = splitStringToCharacterArray(o1);
@@ -98,6 +106,9 @@ public class IntegerStringUtility {
     public static class StringSimilarityGroupComparator implements Comparator<String[]> {
         @Override
         public int compare(String[] o1, String[] o2) {
+            if (o1 == null || o2 == null) {
+                throw new IllegalArgumentException("Strings cannot be null");
+            }
             int lengthComparison = Integer.compare(o1.length, o2.length);
             if (lengthComparison != 0)
                 return lengthComparison;
@@ -117,7 +128,8 @@ public class IntegerStringUtility {
 
     public static String[][] getSimilarityGroups(String[] arr) {
         // TODO - Test
-        if (arr.length == 0) return new String[0][];
+        if (arr.length == 0)
+            return new String[0][];
 
         String[] arrCopy = Arrays.copyOf(arr, arr.length);
 
@@ -143,6 +155,9 @@ public class IntegerStringUtility {
     }
 
     public static String[] findMaximumSimilarityGroup(int[] arr) throws NoSuchElementException {
+        if (arr == null) {
+            throw new IllegalArgumentException("Array cannot be null");
+        }
         if (arr.length == 0) {
             throw new NoSuchElementException("Array is empty.");
         }
