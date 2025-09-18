@@ -98,15 +98,17 @@ public class IntegerStringUtility {
     public static class StringSimilarityGroupComparator implements Comparator<String[]> {
         @Override
         public int compare(String[] o1, String[] o2) {
-            // TODO - Test that this method works.
             int lengthComparison = Integer.compare(o1.length, o2.length);
             if (lengthComparison != 0)
                 return lengthComparison;
             else {
+                
+                if(o1.length == 0){return 0;}
+                
                 StringNumericalValueComparator cmp = new StringNumericalValueComparator();
                 String o1Max = findMax(o1, cmp);
                 String o2Max = findMax(o2, cmp);
-                return o1Max.compareTo(o2Max);
+                return cmp.compare(o1Max, o2Max);
             }
         }
     }
