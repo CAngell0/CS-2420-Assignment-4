@@ -102,9 +102,11 @@ public class IntegerStringUtility {
             if (lengthComparison != 0)
                 return lengthComparison;
             else {
-                
-                if(o1.length == 0){return 0;}
-                
+
+                if (o1.length == 0) {
+                    return 0;
+                }
+
                 StringNumericalValueComparator cmp = new StringNumericalValueComparator();
                 String o1Max = findMax(o1, cmp);
                 String o2Max = findMax(o2, cmp);
@@ -141,8 +143,11 @@ public class IntegerStringUtility {
     }
 
     public static String[] findMaximumSimilarityGroup(int[] arr) throws NoSuchElementException {
+        if (arr.length == 0) {
+            throw new NoSuchElementException("Array is empty.");
+        }
         String[] strArr = new String[arr.length];
-        for(int i = 0; i < arr.length; i++){
+        for (int i = 0; i < arr.length; i++) {
             strArr[i] = arr[i] + "";
         }
         String[][] simGroups = getSimilarityGroups(strArr);
