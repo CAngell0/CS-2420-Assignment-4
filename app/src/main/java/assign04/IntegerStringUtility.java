@@ -48,6 +48,9 @@ public class IntegerStringUtility {
      * @throws NoSuchElementException If the array is empty, a NoSuchElementException is thrown.
      */
     public static <E> E findMax(E[] arr, Comparator<? super E> cmp) throws NoSuchElementException {
+        if (arr == null) {
+            throw new IllegalArgumentException("Array cannot be null");
+        }
         if (arr.length == 0)
             throw new NoSuchElementException("Array is empty, no such element exists.");
 
@@ -86,6 +89,9 @@ public class IntegerStringUtility {
     public static class StringNumericalValueComparator implements Comparator<String> {
         @Override
         public int compare(String o1, String o2) {
+            if (o1 == null || o2 == null) {
+                throw new IllegalArgumentException("Strings cannot be null");
+            }
             //Remove leading zeroes
             String o1Stripped = stripLeadingZeros(o1);
             String o2Stripped = stripLeadingZeros(o2);
@@ -112,6 +118,12 @@ public class IntegerStringUtility {
     public static class StringSimilarityComparator implements Comparator<String> {
         @Override
         public int compare(String o1, String o2) {
+            if (o1 == null || o2 == null) {
+                throw new IllegalArgumentException("Strings cannot be null");
+            }
+            if (o1.length() != o2.length())
+                return Integer.compare(o1.length(), o2.length());
+
             //Trim the numbers of leading zeroes
             String o1Trimmed = stripLeadingZeros(o1);
             String o2Trimmed = stripLeadingZeros(o2);
@@ -141,16 +153,24 @@ public class IntegerStringUtility {
 
     public static class StringSimilarityGroupComparator implements Comparator<String[]> {
         @Override
+        /**
+         * Compares two groups togther by size
+         * If they are the same size the group containing the largest numebr wins
+         * If they are both empty they are equal
+         */
         public int compare(String[] o1, String[] o2) {
+            //If either string is null, throw an error
+            if (o1 == null || o2 == null) {
+                throw new IllegalArgumentException("Strings cannot be null");
+            }
+            //If lengths are not the same return a natural integer comparison for lengths
             int lengthComparison = Integer.compare(o1.length, o2.length);
             if (lengthComparison != 0)
                 return lengthComparison;
             else {
+                if (o1.length == 0) return 0;
 
-                if (o1.length == 0) {
-                    return 0;
-                }
-
+                //Get the largest number in each group and return a numerical comparison of the numbers.
                 StringNumericalValueComparator cmp = new StringNumericalValueComparator();
                 String o1Max = findMax(o1, cmp);
                 String o2Max = findMax(o2, cmp);
@@ -159,25 +179,42 @@ public class IntegerStringUtility {
         }
     }
 
+    /**
+     * Groups similar Strings together
+     * Each row is a new Similarity Group
+     * Uses insertionSort to find all the similar strings
+     * 
+     * @param arr
+     * @return
+     */
     public static String[][] getSimilarityGroups(String[] arr) {
         if (arr.length == 0) return new String[0][];
 
+        //Create a copy of the array to prevent original array altering
         String[] arrCopy = Arrays.copyOf(arr, arr.length);
 
+        //Create comparator and sort the copied array by number similarity
         StringSimilarityComparator cmp = new StringSimilarityComparator();
         insertionSort(arrCopy, cmp);
 
+        //Creates an arraylist to store similarity groups that are found (see further...)
         ArrayList<String[]> similarityGroups = new ArrayList<>();
         int groupStartIndex = 0;
+        
+        //This iterates through the copied array...
         for (int i = 0; i <= arrCopy.length; i++) {
+            //Compares each element to the one after it based on similarity comparison...
             if (i != arrCopy.length && cmp.compare(arrCopy[groupStartIndex], arrCopy[i]) == 0)
+                //If they are similar, continue to the next element
                 continue;
 
+            //If they are not similar, create a string subarray and add all the previous elements that are similar 
             String[] group = new String[i - groupStartIndex];
             for (int j = groupStartIndex; j < i; j++) {
                 group[j - groupStartIndex] = arrCopy[j];
             }
 
+            //Notes where the next grouping should start and adds the new group to the arraylist
             groupStartIndex = i;
             similarityGroups.add(group);
         }
@@ -185,14 +222,26 @@ public class IntegerStringUtility {
         return similarityGroups.toArray(new String[0][0]);
     }
 
+    /**
+     * Returns the largest similarity group in an array
+     * It uses getSimilarityGroups to group everything together and then finds the
+     * max
+     * 
+     * @param arr
+     * @return
+     * @throws NoSuchElementException
+     */
     public static String[] findMaximumSimilarityGroup(int[] arr) throws NoSuchElementException {
-        if (arr.length == 0) {
-            throw new NoSuchElementException("Array is empty.");
-        }
+        if (arr == null) throw new IllegalArgumentException("Array cannot be null");
+        if (arr.length == 0) throw new NoSuchElementException("Array is empty.");
+
+        //Converts the int array into a string array (per assignment error)
         String[] strArr = new String[arr.length];
         for (int i = 0; i < arr.length; i++) {
             strArr[i] = arr[i] + "";
         }
+
+        //Get the similarity groups and use the StringSimilarityGroupComparator and findMax method to get the largest group
         String[][] simGroups = getSimilarityGroups(strArr);
         StringSimilarityGroupComparator cmp = new StringSimilarityGroupComparator();
         return findMax(simGroups, cmp);

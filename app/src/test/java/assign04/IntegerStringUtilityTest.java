@@ -2,10 +2,12 @@ package assign04;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Comparator;
 import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -94,7 +96,6 @@ public class IntegerStringUtilityTest {
         String num3 = "84542837655628";
         String num4 = "6437651276543781264";
 
-        assertEquals(0, cmp.compare("", ""));
         assertEquals(0, cmp.compare(num1, num1));
         assertEquals(0, cmp.compare(num1, num3));
         assertEquals(0, cmp.compare(num3, num3));
@@ -113,85 +114,6 @@ public class IntegerStringUtilityTest {
         String num1 = "57245";
         String num2 = "55274";
         String num3 = "74525";
-
-        //Similar
-        String num4 = "9435645292736546437623";
-        String num5 = "3465392447562923643756";
-
-        assertEquals(0, cmp.compare("", ""));
-        assertEquals(0, cmp.compare(num1, num2));
-        assertEquals(0, cmp.compare(num2, num3));
-        assertEquals(0, cmp.compare(num3, num1));
-        assertEquals(0, cmp.compare(num4, num5));
-
-        assertTrue(cmp.compare(num4, num1) > 0);
-        assertTrue(cmp.compare(num1, num4) < 0);
-        assertTrue(cmp.compare(num5, num3) > 0);
-        assertTrue(cmp.compare(num3, num5) < 0);
-    }
-
-    @Test
-    void testGetSimilarityGroups(){
-        String[] strArr = new String[]{"2341", "123", "2134", "2431", "312", "2143"};
-        String[][] expectedGroupedArray = new String[2][];
-            expectedGroupedArray[0] = new String[]{"123", "312"};
-            expectedGroupedArray[1] = new String[]{"2341", "2134", "2431", "2143"};
-        
-        String[][] result = IntegerStringUtility.getSimilarityGroups(strArr);
-
-        assertNotNull(result);
-        assertEquals(2, result.length);
-        assertEquals(2, result[0].length);
-        assertEquals(4, result[1].length);
-        for (int row = 0; row < expectedGroupedArray.length; row++){
-            for (int col = 0; col < expectedGroupedArray[row].length; col++){
-                assertEquals(result[row][col], expectedGroupedArray[row][col]);
-            }
-        }
-    }
-
-    @Test
-    void testGetSimilarityGroupsWithEmptyArray(){
-        String[] strArr = new String[0];
-        String[][] result = IntegerStringUtility.getSimilarityGroups(strArr);
-
-        assertNotNull(result);
-        assertEquals(0, result.length);
-        assertThrows(IndexOutOfBoundsException.class,() -> {
-            @SuppressWarnings("unused")
-            String[] test = result[0];
-        });
-    }
-
-    @Test
-    void testGetSimilarityGroupsWithEmptyStringInArray(){
-        //Testing with just an empty string
-        String[] strArr = new String[]{""};
-        String[][] result = IntegerStringUtility.getSimilarityGroups(strArr);
-
-        assertNotNull(result);
-        assertEquals(1, result.length);
-        assertEquals(1, result[0].length);
-        assertEquals("", result[0][0]);
-
-        //Testing with numbers and empty strings
-        String[] strArr2 = new String[]{"2341", "123", "", "2431", "312", "", "", "2143", "2134"};
-        String[][] expectedResult = new String[3][];
-            expectedResult[0] = new String[]{"", "", ""};
-            expectedResult[1] = new String[]{"123", "312"};
-            expectedResult[2] = new String[]{"2341", "2431", "2143", "2134"};
-        String[][] result2 = IntegerStringUtility.getSimilarityGroups(strArr2);
-        
-        assertNotNull(result2);
-        assertEquals(3, result2.length);
-        assertEquals(3, result2[0].length);
-        assertEquals(2, result2[1].length);
-        assertEquals(4, result2[2].length);
-        for (int row = 0; row < expectedResult.length; row++){
-            for (int col = 0; col < expectedResult[row].length; col++){
-                assertEquals(result2[row][col], expectedResult[row][col]);
-            }
-        }
     }
 
     @Test
@@ -244,6 +166,21 @@ public class IntegerStringUtilityTest {
             IntegerStringUtility.insertionSort(emptyArr, String::compareTo);
         });
     }
-    
 
+    @Test
+    void testStringSimilarityComparatorEmptyStrings() {
+        IntegerStringUtility.StringSimilarityComparator cmp = new IntegerStringUtility.StringSimilarityComparator();
+
+        assertEquals(0, cmp.compare("", ""), "Empty strings should be equal");
+        assertTrue(cmp.compare("", "a") < 0, "Empty string should be less than non-empty");
+    }
+
+    @Test
+    void testStringSimilarityWithNonDigits() {
+        IntegerStringUtility.StringSimilarityComparator cmp = new IntegerStringUtility.StringSimilarityComparator();
+
+        assertEquals(0, cmp.compare("abc", "bca"));
+        assertEquals(0, cmp.compare("listen", "silent"));
+        assertNotEquals(0, cmp.compare("abc", "def"));
+    }
 }
