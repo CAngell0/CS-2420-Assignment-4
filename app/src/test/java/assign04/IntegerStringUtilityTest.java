@@ -76,10 +76,17 @@ public class IntegerStringUtilityTest {
     }
 
     @Test
+    void testStringNumericValueComparatorWithLeadingZeroes(){
+        IntegerStringUtility.StringNumericalValueComparator cmp = new IntegerStringUtility.StringNumericalValueComparator();
+
+        assertTrue(cmp.compare("0", "12") < 0);
+        assertTrue(cmp.compare("13", "012") > 0);
+        assertTrue(cmp.compare("000000000402014450", "0221344") > 0);
+        assertTrue(cmp.compare("000175433410", "0000276832450") < 0);
+    }
+
+    @Test
     void testStringNumericValueComparator() {
-        // TODO : Find out if these tests should account for negative numbers.
-        // I remember the assignment saying something about it but I don't know where to
-        // find it.
         IntegerStringUtility.StringNumericalValueComparator cmp = new IntegerStringUtility.StringNumericalValueComparator();
 
         String num1 = "84542837655628";
