@@ -1,5 +1,6 @@
 package assign04;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -149,4 +150,14 @@ public class IntegerStringUtilityTest {
             IntegerStringUtility.findMaximumSimilarityGroup(emptyArr);
         });
     }
+
+    @Test
+    void testInsertionSortEmptyArray() {
+        String[] emptyArr = {};
+        assertDoesNotThrow(() -> {
+            IntegerStringUtility.insertionSort(emptyArr, String::compareTo);
+        });
+    }
+    
+
 }
