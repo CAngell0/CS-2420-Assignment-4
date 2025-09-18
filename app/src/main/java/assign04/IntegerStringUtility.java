@@ -56,7 +56,6 @@ public class IntegerStringUtility {
     public static class StringNumericalValueComparator implements Comparator<String> {
         @Override
         public int compare(String o1, String o2) {
-            // TODO : test
             String o1Stripped = stripLeadingZeros(o1);
             String o2Stripped = stripLeadingZeros(o2);
             if (o1Stripped.length() != o2Stripped.length())
