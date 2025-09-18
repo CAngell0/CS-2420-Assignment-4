@@ -105,7 +105,13 @@ public class IntegerStringUtility {
 
     public static class StringSimilarityGroupComparator implements Comparator<String[]> {
         @Override
+        /**
+         * Compares two groups togther by size
+         * If they are the same size the group containing the largest numebr wins
+         * If they are both empty they are equal
+         */
         public int compare(String[] o1, String[] o2) {
+
             if (o1 == null || o2 == null) {
                 throw new IllegalArgumentException("Strings cannot be null");
             }
@@ -126,6 +132,14 @@ public class IntegerStringUtility {
         }
     }
 
+    /**
+     * Groups similar Strings together
+     * Each row is a new Similarity Group
+     * Uses insertionSort to find all the similar strings
+     * 
+     * @param arr
+     * @return
+     */
     public static String[][] getSimilarityGroups(String[] arr) {
         if (arr.length == 0)
             return new String[0][];
@@ -153,6 +167,15 @@ public class IntegerStringUtility {
         return similarityGroups.toArray(new String[0][0]);
     }
 
+    /**
+     * Returns the largest similarity group in an array
+     * It uses getSimilarityGroups to group everything together and then finds the
+     * max
+     * 
+     * @param arr
+     * @return
+     * @throws NoSuchElementException
+     */
     public static String[] findMaximumSimilarityGroup(int[] arr) throws NoSuchElementException {
         if (arr == null) {
             throw new IllegalArgumentException("Array cannot be null");
