@@ -23,7 +23,6 @@ public class AlternateFindMaxExpirement extends TimingExperiment {
 
     public AlternateFindMaxExpirement(String problemSizeName, List<Integer> problemSizes, int iterationCount){
         super(problemSizeName, problemSizes, iterationCount);
-        
     }
 
     @Override

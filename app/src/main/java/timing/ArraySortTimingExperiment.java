@@ -49,10 +49,10 @@ public abstract class ArraySortTimingExperiment extends TimingExperiment {
    */
   protected void populateRandomArray(int problemSize) {
     populateAscendingArray(problemSize);
-    for (int count = 0; count < problemSize * 3; count++){
+    for (int count = 0; count < array.length * 3; count++){
         swapEntries(
-            (int) Math.random() * problemSize, 
-            (int) Math.random() * problemSize
+            (int) (Math.random() * array.length), 
+            (int) (Math.random() * array.length)
         );
     }
   }
