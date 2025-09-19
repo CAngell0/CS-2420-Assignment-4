@@ -1,13 +1,13 @@
 package assign04;
 
+import java.util.Comparator;
 import java.util.List;
 
 import timing.TimingExperiment;
 
 public class InsertionSortWorstCaseTimingExperiment extends ArraySortTimingExperiment{
-
     public static void main(String[] args){
-        List<Integer> problemSizes = buildProblemSizes(100000, 20000, 50);
+        List<Integer> problemSizes = buildProblemSizes(1000, 100, 10);
 
         int interationCount = 50;
 
@@ -25,14 +25,12 @@ public class InsertionSortWorstCaseTimingExperiment extends ArraySortTimingExper
 
     @Override
     protected void setupExperiment(int problemSize) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setupExperiment'");
+        populateDescendingArray(problemSize);
     }
 
     @Override
     protected void runComputation() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'runComputation'");
+        IntegerStringUtility.insertionSort(this.array, Comparator.naturalOrder());
     }
 
 }
