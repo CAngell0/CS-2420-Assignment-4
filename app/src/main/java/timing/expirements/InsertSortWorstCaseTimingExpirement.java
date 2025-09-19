@@ -8,7 +8,7 @@ import timing.ArraySortTimingExperiment;
 public class InsertSortWorstCaseTimingExpirement extends ArraySortTimingExperiment {
     public static void main(String[] args) {
         int iterationCount = 50;
-        List<Integer> problemSizes = buildProblemSizes(1000, 2000, 200);
+        List<Integer> problemSizes = buildProblemSizes(1000, 1000, 100);
 
         InsertSortWorstCaseTimingExpirement expirement = new InsertSortWorstCaseTimingExpirement(problemSizes, iterationCount);
 
