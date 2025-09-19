@@ -1,26 +1,27 @@
-package timing;
+package timing.expirements;
 
 import java.util.List;
 
 import assign04.IntegerStringUtility;
+import timing.TimingExperiment;
 
-public class OriginalFindMaxExpirement extends TimingExperiment {
+public class AlternateFindMaxExpirement extends TimingExperiment {
     private Integer[] numbers;
 
     public static void main(String[] args) {
         int iterationCount = 50;
-        String problemSizeName = "Original Find Max Method";
-        List<Integer> problemSizes = buildProblemSizes(1000000, 1000000, 20);
+        String problemSizeName = "Alternate Find Max Method";
+        List<Integer> problemSizes = buildProblemSizes(1000000, 1000000, 200);
 
-        TimingExperiment experiment = new OriginalFindMaxExpirement(problemSizeName, problemSizes, iterationCount);
+        TimingExperiment experiment = new AlternateFindMaxExpirement(problemSizeName, problemSizes, iterationCount);
 
         experiment.warmup(50);
         experiment.run();
         experiment.print();
-        experiment.writeToCSV("timing.csv");
+        experiment.writeToCSV("timing4.csv");
     }
 
-    public OriginalFindMaxExpirement(String problemSizeName, List<Integer> problemSizes, int iterationCount){
+    public AlternateFindMaxExpirement(String problemSizeName, List<Integer> problemSizes, int iterationCount){
         super(problemSizeName, problemSizes, iterationCount);
         
     }
@@ -35,6 +36,6 @@ public class OriginalFindMaxExpirement extends TimingExperiment {
 
     @Override
     protected void runComputation() {
-        IntegerStringUtility.findMax(numbers, (n1, n2) -> Integer.compare(n1, n2));
+        IntegerStringUtility.findMaxAlternate(numbers, (n1, n2) -> Integer.compare(n1, n2));
     }
 }
