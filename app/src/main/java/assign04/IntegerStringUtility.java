@@ -70,11 +70,8 @@ public class IntegerStringUtility {
      * @throws NoSuchElementException If the array is empty, a NoSuchElementException is thrown.
      */
     public static <E> E findMaxAlternate(E[] arr, Comparator<? super E> cmp) throws NoSuchElementException {
-        if (arr == null) {
-            throw new IllegalArgumentException("Array cannot be null");
-        }
-        if (arr.length == 0)
-            throw new NoSuchElementException("Array is empty, no such element exists.");
+        if (arr == null) throw new IllegalArgumentException("Array cannot be null");
+        if (arr.length == 0) throw new NoSuchElementException("Array is empty, no such element exists.");
 
         E largestElement = arr[0];
         for (E element : arr){
