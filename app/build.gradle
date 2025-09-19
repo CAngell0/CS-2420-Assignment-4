@@ -39,7 +39,7 @@ application {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'timing.expirements.InsertionSortAverageCaseTimingExperiment'
+        attributes 'Main-Class': 'timing.expirements.InsertionSortBestCaseTimingExperiment'
     }
 }
 

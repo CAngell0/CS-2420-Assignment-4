@@ -9,14 +9,14 @@ public class InsertionSortBestCaseTimingExperiment extends ArraySortTimingExperi
 
     public static void main(String[] args) {
         int iterationCount = 50;
-        List<Integer> problemSizes = buildProblemSizes(1000, 2000, 20);
+        List<Integer> problemSizes = buildProblemSizes(100000, 100000, 40);
 
         InsertionSortBestCaseTimingExperiment experiment = new InsertionSortBestCaseTimingExperiment(problemSizes, iterationCount);
 
         experiment.warmup(50);
         experiment.run();
         experiment.print();
-        experiment.writeToCSV("timing.csv");
+        experiment.writeToTXT("timing.txt");
     }
 
     public InsertionSortBestCaseTimingExperiment(List<Integer> problemSizes, int iterationCount){
