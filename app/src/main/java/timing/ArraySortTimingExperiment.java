@@ -48,7 +48,13 @@ public abstract class ArraySortTimingExperiment extends TimingExperiment {
    * @param problemSize - size of the array
    */
   protected void populateRandomArray(int problemSize) {
-    // TODO: Implement this method
+    populateAscendingArray(problemSize);
+    for (int count = 0; count < problemSize * 3; count++){
+        swapEntries(
+            (int) Math.random() * problemSize, 
+            (int) Math.random() * problemSize
+        );
+    }
   }
 
   /**
@@ -58,7 +64,10 @@ public abstract class ArraySortTimingExperiment extends TimingExperiment {
    * @param problemSize - size of the array
    */
   protected void populateDescendingArray(int problemSize) {
-    // TODO: Implement this method
+    populateAscendingArray(problemSize);
+    for (int i = 0; i < problemSize / 2; i++){
+        swapEntries(i, problemSize - 1 - i);
+    }
   }
 
   /**
