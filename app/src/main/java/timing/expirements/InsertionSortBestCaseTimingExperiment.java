@@ -5,27 +5,27 @@ import java.util.List;
 import assign04.IntegerStringUtility;
 import timing.ArraySortTimingExperiment;
 
-public class InsertionSortAverageCaseTimingExperiment extends ArraySortTimingExperiment {
+public class InsertionSortBestCaseTimingExperiment extends ArraySortTimingExperiment {
 
     public static void main(String[] args) {
         int iterationCount = 50;
-        List<Integer> problemSizes = buildProblemSizes(1000, 1000, 100);
+        List<Integer> problemSizes = buildProblemSizes(1000, 2000, 20);
 
-        InsertionSortAverageCaseTimingExperiment experiment = new InsertionSortAverageCaseTimingExperiment(problemSizes, iterationCount);
+        InsertionSortBestCaseTimingExperiment experiment = new InsertionSortBestCaseTimingExperiment(problemSizes, iterationCount);
 
         experiment.warmup(50);
         experiment.run();
         experiment.print();
-        experiment.writeToCSV("timing2.csv");
+        experiment.writeToCSV("timing.csv");
     }
 
-    public InsertionSortAverageCaseTimingExperiment(List<Integer> problemSizes, int iterationCount){
+    public InsertionSortBestCaseTimingExperiment(List<Integer> problemSizes, int iterationCount){
         super(problemSizes, iterationCount);
     }
 
     @Override
     protected void setupExperiment(int problemSize) {
-        populateRandomArray(problemSize);
+        populateNearlyAscendingArray(problemSize);
     }
 
     @Override
