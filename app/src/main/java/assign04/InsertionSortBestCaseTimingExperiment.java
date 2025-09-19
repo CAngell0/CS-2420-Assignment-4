@@ -1,24 +1,37 @@
 package assign04;
 
+import java.util.Comparator;
 import java.util.List;
 
-public class InsertionSortBestCaseTimingExperiment extends ArraySortTimingExperiment{
+import timing.TimingExperiment;
+
+public class InsertionSortBestCaseTimingExperiment extends ArraySortTimingExperiment {
+
+    public static void main(String[] args) {
+        List<Integer> problemSizes = buildProblemSizes(1000, 1000, 20);
+
+        int interationCount = 50;
+
+        TimingExperiment experiment = new InsertionSortBestCaseTimingExperiment(problemSizes, interationCount);
+
+        experiment.warmup(100);
+        experiment.run();
+        experiment.print();
+        experiment.write("InsertionSortBestCaseTimingExperiment.txt");
+    }
 
     public InsertionSortBestCaseTimingExperiment(List<Integer> problemSizes, int iterationCount) {
         super(problemSizes, iterationCount);
-        //TODO Auto-generated constructor stub
     }
 
     @Override
     protected void setupExperiment(int problemSize) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setupExperiment'");
+        populateNearlyAscendingArray(problemSize);
     }
 
     @Override
     protected void runComputation() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'runComputation'");
+        IntegerStringUtility.insertionSort(this.array, Comparator.naturalOrder());
     }
 
 }

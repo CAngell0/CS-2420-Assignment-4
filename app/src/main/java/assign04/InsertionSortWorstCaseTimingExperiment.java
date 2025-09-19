@@ -5,9 +5,9 @@ import java.util.List;
 
 import timing.TimingExperiment;
 
-public class InsertionSortWorstCaseTimingExperiment extends ArraySortTimingExperiment{
-    public static void main(String[] args){
-        List<Integer> problemSizes = buildProblemSizes(1000, 100, 10);
+public class InsertionSortWorstCaseTimingExperiment extends ArraySortTimingExperiment {
+    public static void main(String[] args) {
+        List<Integer> problemSizes = buildProblemSizes(1000, 100, 20);
 
         int interationCount = 50;
 
