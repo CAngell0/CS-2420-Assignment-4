@@ -4,7 +4,8 @@ import java.util.*;
 import timing.TimingExperiment;
 
 /**
- * Abstract class to perform timing experiments for sorting arrays with varying degrees of "sortedness".
+ * Abstract class to perform timing experiments for sorting arrays with varying
+ * degrees of "sortedness".
  *
  * @author CS 2420 Course Staff
  * @version 2025-09-15
@@ -17,13 +18,14 @@ public abstract class ArraySortTimingExperiment extends TimingExperiment {
   /**
    * Constructor to build a sort timing experiment.
    *
-   * @param problemSizes - the list of problem sizes on which to run the experiment
-   * @param iterationCount - the number of times to run the experiment for each problem size
+   * @param problemSizes   - the list of problem sizes on which to run the
+   *                       experiment
+   * @param iterationCount - the number of times to run the experiment for each
+   *                       problem size
    */
   public ArraySortTimingExperiment(
-    List<Integer> problemSizes,
-    int iterationCount
-  ) {
+      List<Integer> problemSizes,
+      int iterationCount) {
     super("arrayLength", problemSizes, iterationCount);
   }
 
@@ -45,28 +47,34 @@ public abstract class ArraySortTimingExperiment extends TimingExperiment {
   /**
    * Helper method to populate the array with random integers in random order.
    *
-   * @implNote method must call populateAscendingArray and then shuffle the contents of the array
+   * @implNote method must call populateAscendingArray and then shuffle the
+   *           contents of the array
    * @param problemSize - size of the array
    */
   protected void populateRandomArray(int problemSize) {
-    // TODO: Implement this method
+    populateAscendingArray(problemSize);
+    Collections.shuffle(Arrays.asList(array), rng);
   }
 
   /**
    * Helper method to populate the array with random integers in descending order.
    *
-   * @implNote method must call populateAscendingArray and then reverse the contents of the array
+   * @implNote method must call populateAscendingArray and then reverse the
+   *           contents of the array
    * @param problemSize - size of the array
    */
   protected void populateDescendingArray(int problemSize) {
-    // TODO: Implement this method
+    populateAscendingArray(problemSize);
+    Collections.reverse(Arrays.asList(array));
   }
 
   /**
-   * Helper method to populate the array with random integers in nearly ascending order.
+   * Helper method to populate the array with random integers in nearly ascending
+   * order.
    *
-   * @implNote method must call populateAscending array and then swap a small number of random
-   * pairs of nearby elements
+   * @implNote method must call populateAscending array and then swap a small
+   *           number of random
+   *           pairs of nearby elements
    */
   protected void populateNearlyAscendingArray(int problemSize) {
     populateAscendingArray(problemSize);
