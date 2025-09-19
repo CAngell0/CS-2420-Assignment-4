@@ -10,14 +10,14 @@ public class AlternateFindMaxExpirement extends TimingExperiment {
     public static void main(String[] args) {
         int iterationCount = 50;
         String problemSizeName = "Alternate Find Max Method";
-        List<Integer> problemSizes = buildProblemSizes(1000, 1000, 20);
+        List<Integer> problemSizes = buildProblemSizes(1000000, 1000000, 200);
 
         TimingExperiment experiment = new AlternateFindMaxExpirement(problemSizeName, problemSizes, iterationCount);
 
         experiment.warmup(50);
         experiment.run();
         experiment.print();
-        experiment.writeToCSV("timing.csv");
+        experiment.writeToCSV("timing4.csv");
     }
 
     public AlternateFindMaxExpirement(String problemSizeName, List<Integer> problemSizes, int iterationCount){

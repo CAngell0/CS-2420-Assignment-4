@@ -10,7 +10,7 @@ public class OriginalFindMaxExpirement extends TimingExperiment {
     public static void main(String[] args) {
         int iterationCount = 50;
         String problemSizeName = "Original Find Max Method";
-        List<Integer> problemSizes = buildProblemSizes(1000, 1000, 20);
+        List<Integer> problemSizes = buildProblemSizes(1000000, 1000000, 20);
 
         TimingExperiment experiment = new OriginalFindMaxExpirement(problemSizeName, problemSizes, iterationCount);
 

@@ -39,7 +39,7 @@ application {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'assign04.IntegerStringUtility'
+        attributes 'Main-Class': 'timing.AlternateFindMaxExpirement'
     }
 }
 
